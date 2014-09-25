@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["joncirca@icloud.com"]
   spec.summary       = %q{canon camera sdk.}
   spec.description   = %q{Magic sauce ruby wrapper for canon EOS EDSDK.}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/hooty/canonball"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
