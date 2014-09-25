@@ -1,5 +1,7 @@
 # Canonball
 
+[ ![Codeship Status for hooty/canonball](https://www.codeship.io/projects/9a884970-26f6-0132-7b27-1a72e97eb705/status)](https://www.codeship.io/projects/37606)
+
 Magic sauce ruby wrapper for canon EOS EDSDK. This is a wrapper for a C library that take photos and download and delete them from the camera.
 
 ## Installation
