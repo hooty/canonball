@@ -35,7 +35,7 @@ Take a photo:
     camera_index = 0
     Canonball.take_picture(camera_index)
 
-Download photo():
+Download photo(s):
 
     camera_index = 0
     Canonball.download_files(camera_index,"./photo_folder/")
