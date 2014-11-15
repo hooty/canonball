@@ -11,6 +11,22 @@
 #include "EDSDK.h"
 
 extern "C" {
+    int inialize_sdk();
+}
+
+extern "C" {
+    int terminate_sdk();
+}
+
+extern "C" {
+    int open_camera_session(int camera_index);
+}
+
+extern "C" {
+    int close_camera_session(int camera_index);
+}
+
+extern "C" {
     int take_picture(int camera_index);
 }
 
