@@ -23,14 +23,22 @@ extern "C" {
 }
 
 extern "C" {
-    int close_camera_session(int camera_index);
+    int close_camera_session();
 }
 
 extern "C" {
-    int take_picture(int camera_index);
+    int take_picture();
 }
 
 extern "C" {
-  int download_files(int camera_index, const char* folder);
+    int press_shutter_button();
+}
+
+extern "C" {
+    int press_shutter_button_non_af();
+}
+
+extern "C" {
+  int download_files(int sd_card_index, const char* folder);
 }
 

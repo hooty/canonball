@@ -7,6 +7,9 @@
 
 #include "headers/canonball.h"
 
+EdsCameraRef camera = NULL;
+EdsCameraListRef camera_list = NULL;
+
 int inialize_sdk() {
     return EdsInitializeSDK();
 }
@@ -17,33 +20,37 @@ int terminate_sdk() {
 
 int open_camera_session(int camera_index) {
     EdsError error = EDS_ERR_OK;
-    EdsCameraRef camera = NULL;
-    EdsCameraListRef camera_list = NULL;
     if (error == EDS_ERR_OK) error = EdsGetCameraList(&camera_list);
     if (error == EDS_ERR_OK) error = EdsGetChildAtIndex(camera_list, camera_index, &camera);
     if (error == EDS_ERR_OK) error = EdsOpenSession(camera);
     return error;
 }
 
-int close_camera_session(int camera_index) {
+int close_camera_session() {
     EdsError error = EDS_ERR_OK;
-    EdsCameraRef camera = NULL;
-    EdsCameraListRef camera_list = NULL;
-    if (error == EDS_ERR_OK) error = EdsGetCameraList(&camera_list);
-    if (error == EDS_ERR_OK) error = EdsGetChildAtIndex(camera_list, camera_index, &camera);
     if (error == EDS_ERR_OK) error = EdsCloseSession(camera);
     if (error == EDS_ERR_OK) error = EdsRelease(camera);
     if (error == EDS_ERR_OK) error = EdsRelease(camera_list);
     return error;
 }
 
-int take_picture(int camera_index) {
+int take_picture() {
     EdsError error = EDS_ERR_OK;
-    EdsCameraRef camera = NULL;
-    EdsCameraListRef camera_list = NULL;
-    if (error == EDS_ERR_OK) error = EdsGetCameraList(&camera_list);
-    if (error == EDS_ERR_OK) error = EdsGetChildAtIndex(camera_list, camera_index, &camera);
-    if (error == EDS_ERR_OK) error = EdsSendCommand(camera , kEdsCameraCommand_TakePicture, 0);  
+    if (error == EDS_ERR_OK) error = EdsSendCommand(camera , kEdsCameraCommand_TakePicture, 0);
+    return error;
+}
+
+int press_shutter_button() {
+    EdsError error = EDS_ERR_OK;
+    if (error == EDS_ERR_OK) error = EdsSendCommand(camera , kEdsCameraCommand_PressShutterButton, kEdsCameraCommand_ShutterButton_Completely);
+    if (error == EDS_ERR_OK) error = EdsSendCommand(camera , kEdsCameraCommand_PressShutterButton, kEdsCameraCommand_ShutterButton_OFF);
+    return error;
+}
+
+int press_shutter_button_non_af() {
+    EdsError error = EDS_ERR_OK;
+    if (error == EDS_ERR_OK) error = EdsSendCommand(camera , kEdsCameraCommand_PressShutterButton, kEdsCameraCommand_ShutterButton_Completely_NonAF);
+    if (error == EDS_ERR_OK) error = EdsSendCommand(camera , kEdsCameraCommand_PressShutterButton, kEdsCameraCommand_ShutterButton_OFF);
     return error;
 }
 
@@ -60,10 +67,8 @@ int download_file(EdsDirectoryItemRef file_pointer, std::string folder){
     return error;
 }
 
-int download_files(int camera_index, const char* folder) {
+int download_files(int sd_card_index, const char* folder) {
     EdsError error = EDS_ERR_OK;
-    EdsCameraRef camera = NULL;
-    EdsCameraListRef camera_list = NULL;
 
     EdsUInt32 folder_count = 0;    
     EdsVolumeRef sd_card = NULL;
@@ -71,9 +76,7 @@ int download_files(int camera_index, const char* folder) {
     EdsDirectoryItemInfo folder_info;
 
     // Get DCIM folder
-    if (error == EDS_ERR_OK) error = EdsGetCameraList(&camera_list);
-    if (error == EDS_ERR_OK) error = EdsGetChildAtIndex(camera_list, camera_index, &camera);
-    if (error == EDS_ERR_OK) error = EdsGetChildAtIndex(camera, 0, &sd_card);
+    if (error == EDS_ERR_OK) error = EdsGetChildAtIndex(camera, sd_card_index, &sd_card);
 
     if (error == EDS_ERR_OK) error = EdsGetChildCount( sd_card, &folder_count);
     for(int i = 0; i < folder_count; i++){
