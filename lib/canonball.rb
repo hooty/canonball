@@ -14,4 +14,9 @@ module Canonball
   attach_function :press_shutter_button, [], :int
   attach_function :press_shutter_button_non_af, [], :int
   attach_function :download_files, [ :int, :string], :int
+
+  def open_mirror
+    press_shutter_button_non_af
+  end
+  
 end
