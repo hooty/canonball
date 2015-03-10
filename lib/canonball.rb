@@ -13,10 +13,10 @@ module Canonball
   attach_function :take_picture, [], :int
   attach_function :press_shutter_button, [], :int
   attach_function :press_shutter_button_non_af, [], :int
-  attach_function :download_files, [ :int, :string], :int
+  attach_function :download_files, [ :int, :string], :int  
 
-  def open_mirror
+  def self.open_mirror
     press_shutter_button_non_af
   end
-  
+
 end
