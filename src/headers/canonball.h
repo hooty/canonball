@@ -31,6 +31,10 @@ extern "C" {
 }
 
 extern "C" {
+    int set_drive_mode();
+}
+
+extern "C" {
     int press_shutter_button();
 }
 

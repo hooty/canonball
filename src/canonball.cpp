@@ -40,6 +40,13 @@ int take_picture() {
     return error;
 }
 
+int set_drive_mode() {
+    EdsError error = EDS_ERR_OK;
+    EdsUInt32 driveMode = 0x00000014;
+    if (error == EDS_ERR_OK) error = EdsSetPropertyData(camera, kEdsPropID_DriveMode, 0, sizeof(driveMode), &driveMode);
+    return error;
+}
+
 int press_shutter_button() {
     EdsError error = EDS_ERR_OK;
     if (error == EDS_ERR_OK) error = EdsSendCommand(camera , kEdsCameraCommand_PressShutterButton, kEdsCameraCommand_ShutterButton_Completely);

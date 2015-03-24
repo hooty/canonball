@@ -11,12 +11,9 @@ module Canonball
   attach_function :open_camera_session, [ :int ], :int
   attach_function :close_camera_session, [], :int
   attach_function :take_picture, [], :int
+  attach_function :set_drive_mode, [], :int
   attach_function :press_shutter_button, [], :int
   attach_function :press_shutter_button_non_af, [], :int
   attach_function :download_files, [ :int, :string], :int  
-
-  def self.open_mirror
-    press_shutter_button_non_af
-  end
 
 end
